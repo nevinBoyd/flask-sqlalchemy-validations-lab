@@ -64,6 +64,14 @@ class Post(db.Model):
             raise ValueError("Content must be at least 250 characters.")
         
         return value
+    
+    # Summary must be at most 250 characters
+    @validates('summary')
+    def validate_summary(self, key, value):
+        if value and len(value.strip()) > 250:
+            raise ValueError("Summary must be at most 250 characters.")
+        
+        return value
 
     def __repr__(self):
         return f'Post(id={self.id}, title={self.title} content={self.content}, summary={self.summary})'

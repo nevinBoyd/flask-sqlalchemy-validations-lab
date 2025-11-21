@@ -81,6 +81,24 @@ class Post(db.Model):
             raise ValueError("Category must be either Fiction or Non-Fiction.")
     
         return value
+    
+    # Title must contain clickbait phrase
+    @validates('title')
+    def validate_title(self, key, value):
+        if not value or value.strip() == "":
+            raise ValueError("Post must have a non-empty title.")
+        
+        clickbait_phrases = [
+           "Won't Believe",
+           "Secret",
+           "Top",
+           "Guess"
+        ]
+
+        if not any(phrase in value for phrase in clickbait_phrases):
+            raise ValueError("Title must contain clickbait phrase.")
+
+        return value
 
     def __repr__(self):
         return f'Post(id={self.id}, title={self.title} content={self.content}, summary={self.summary})'

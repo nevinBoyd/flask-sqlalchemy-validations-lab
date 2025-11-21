@@ -14,8 +14,15 @@ class Author(db.Model):
     # Add validators 
     @validates('name')
     def validate_name(self, key, value):
-        if not value or value.strip() == "":
+        value = value.strip()
+
+        if not value:    
             raise ValueError("Author name must not be empty.")
+        
+        # Name must be unique
+        existing_author = Author.query.filter_by(name=value).first()
+        if existing_author:
+            raise ValueError("Author name must be unique.")
     
         return value
     

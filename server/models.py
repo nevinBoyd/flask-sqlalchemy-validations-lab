@@ -49,7 +49,13 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # Add validators  
-
+    # Title must not be empty
+    @validates('title')
+    def validate_title(self, key, value):
+        if not value or value.strip() == "":
+            raise ValueError("Post must have a non-empty title.")
+          
+        return value
 
     def __repr__(self):
         return f'Post(id={self.id}, title={self.title} content={self.content}, summary={self.summary})'

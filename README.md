@@ -132,3 +132,22 @@ Before you submit your solution, you need to save your progress with git.
 3. Push your commits to GitHub by executing `git push origin main`.
 
 CodeGrade will grade your lab using the same tests as are provided in the `testing/` directory.
+
+---
+
+##  Developer Notes
+
+- Pipenv environment (Python 3.8)
+- Ran initial `flask db upgrade` successfully
+- Wrote validations test-by-test → **commit after each new passing validator**
+- **Author validations**:
+  - Name required
+  - Name must be unique
+  - Phone number exactly 10 digits
+    
+- **Post validations**:
+  - Title required + must include clickbait wording
+  - Content must be at least 250 characters
+  - Summary must be at most 250 characters
+  - Category must be either “Fiction” or “Non-Fiction”
+

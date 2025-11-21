@@ -12,7 +12,13 @@ class Author(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # Add validators 
-
+    @validates('name')
+    def validate_name(self, key, value):
+        if not value or value.strip() == "":
+            raise ValueError("Author name must not be empty.")
+    
+        return value
+    
     def __repr__(self):
         return f'Author(id={self.id}, name={self.name})'
 

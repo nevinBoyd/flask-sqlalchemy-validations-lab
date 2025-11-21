@@ -26,6 +26,14 @@ class Author(db.Model):
     
         return value
     
+    @validates('phone_number')
+    def validate_phone_number(self, key, value):
+        # Value must exist, be digits only, and exactly 10 characters long
+        if not value or not value.isdigit() or len(value) != 10:
+            raise ValueError("Phone number must be exactly 10 digits.")
+        
+        return value
+    
     def __repr__(self):
         return f'Author(id={self.id}, name={self.name})'
 

@@ -56,6 +56,14 @@ class Post(db.Model):
             raise ValueError("Post must have a non-empty title.")
           
         return value
+    
+    # Content must be at least 250 characters
+    @validates('content')
+    def validate_content(self, key, value):
+        if not value or len(value.strip()) < 250:
+            raise ValueError("Content must be at least 250 characters.")
+        
+        return value
 
     def __repr__(self):
         return f'Post(id={self.id}, title={self.title} content={self.content}, summary={self.summary})'
